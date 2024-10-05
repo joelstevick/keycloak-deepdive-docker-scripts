@@ -13,3 +13,6 @@ You can do all of this by executing ./setup-docker.sh
 pgadmin: admin@admin.com/admin
 postgres: keycloak/keycloak
 keycload admin console: admin/admin
+
+### Configure Keycloak authorization server
+![alt text](image.png)
