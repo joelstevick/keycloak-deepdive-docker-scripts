@@ -1,6 +1,6 @@
-### Steps to Set Up Docker Configuration Locally
+### Steps to set up Docker configuration locally
 
-- **Initialize A Local Docker Volume To Persist The Keycloak Authorization Server Data.**
-- **Start Postgres. Postgres Will Provide The Backing Store For Keycloak.**
-- **Start pgAdmin So That We Can Inspect The PostgreSQL Database.**
-- **Start The Keycloak Admin Server.**
+- **Initialize a local Docker volume to persist the Keycloak authorization server data.**
+- **Start Postgres. Postgres will provide the backing store for Keycloak.**
+- **Start pgAdmin so that we can inspect the PostgreSQL database.**
+- **Start the Keycloak admin server.**
