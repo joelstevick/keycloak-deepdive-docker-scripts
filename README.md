@@ -4,3 +4,5 @@
 - **Start Postgres. Postgres will provide the backing store for Keycloak.**
 - **Start pgAdmin so that we can inspect the PostgreSQL database.**
 - **Start the Keycloak admin server.**
+
+Your will need to run chmod +x *.sh in order to execute these scripts
