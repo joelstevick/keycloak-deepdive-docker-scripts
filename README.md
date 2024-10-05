@@ -6,3 +6,5 @@
 - **Start the Keycloak admin server.**
 
 Your will need to run chmod +x *.sh in order to execute these scripts
+
+You can do all of this by executing ./setup-docker.sh
