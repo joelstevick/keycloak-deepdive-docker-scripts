@@ -8,3 +8,8 @@
 Your will need to run chmod +x *.sh in order to execute these scripts
 
 You can do all of this by executing ./setup-docker.sh
+
+### Credentials
+pgadmin: admin@admin.com/admin
+postgres: keycloak/keycloak
+keycload admin console: admin/admin

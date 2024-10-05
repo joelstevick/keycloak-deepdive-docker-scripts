@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to start pgAdmin container
+# Script to start pgAdmin with a pre-configured PostgreSQL server
 
 # Define container name
 CONTAINER_NAME="pgadmin4"
@@ -9,8 +9,9 @@ CONTAINER_NAME="pgadmin4"
 PGADMIN_DEFAULT_EMAIL="admin@admin.com"
 PGADMIN_DEFAULT_PASSWORD="admin"
 
-# Define volume name (use the existing volume or change as needed)
+# Define volume name and path to the pre-configured server JSON file
 VOLUME_NAME="pgadmin_data"
+SERVERS_JSON_PATH="./servers.json"
 
 # Define port mapping (host port:container port)
 HOST_PORT="8081"
@@ -27,9 +28,13 @@ else
       -e PGADMIN_DEFAULT_EMAIL=$PGADMIN_DEFAULT_EMAIL \
       -e PGADMIN_DEFAULT_PASSWORD=$PGADMIN_DEFAULT_PASSWORD \
       -v $VOLUME_NAME:/var/lib/pgadmin \
+      -v $SERVERS_JSON_PATH:/pgadmin4/servers.json \
       -p $HOST_PORT:$CONTAINER_PORT \
       dpage/pgadmin4
 
-    echo "pgAdmin container '$CONTAINER_NAME' started successfully."
+    # Copy the servers.json file into the pgAdmin configuration directory
+    docker exec $CONTAINER_NAME sh -c 'cp /pgadmin4/servers.json /var/lib/pgadmin/pgadmin4/servers.json'
+
+    echo "pgAdmin container '$CONTAINER_NAME' started successfully with pre-configured PostgreSQL server."
     echo "Access pgAdmin at http://localhost:$HOST_PORT"
 fi

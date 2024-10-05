@@ -1,0 +1,15 @@
+{
+    "Servers": {
+      "1": {
+        "Name": "PostgreSQL",
+        "Group": "Servers",
+        "Host": "host.docker.internal",
+        "Port": 5432,
+        "MaintenanceDB": "postgres",
+        "Username": "keycloak",
+        "Password": "keycloak",
+        "SSLMode": "prefer",
+        "Comment": "PostgreSQL for Keycloak"
+      }
+    }
+  }
