@@ -20,6 +20,6 @@ fi
 
 # Step 5: Run the Docker container in detached mode
 echo "Running the Docker container on port 8200..."
-docker run -d --name my-fastapi-app -p 8200:8200 my-fastapi-app
+docker run -d --name my-fastapi-app -p 8200:8200 --name my-fastapi-app
 
 echo "Setup complete! The application is running on http://localhost:8200"
