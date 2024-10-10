@@ -2,8 +2,9 @@
 
 # Script to initialize Docker volume for PostgreSQL persistence
 
-# Define volume name
+# Define volume name and network name
 VOLUME_NAME="postgres_data"
+NETWORK_NAME="my_network"
 
 # Function to check if volume exists
 volume_exists() {
@@ -24,8 +25,20 @@ remove_volume() {
   echo "Docker volume '$VOLUME_NAME' removed."
 }
 
+# Function to check if the network exists
+network_exists() {
+  docker network inspect $NETWORK_NAME > /dev/null 2>&1
+}
+
+# Function to create Docker network
+create_network() {
+  echo "Creating Docker network '$NETWORK_NAME'..."
+  docker network create $NETWORK_NAME
+  echo "Docker network '$NETWORK_NAME' created."
+}
+
 # Main script
-echo "Initializing Docker volume for PostgreSQL..."
+echo "Initializing Docker volume and network for PostgreSQL..."
 
 # Check if volume exists
 if volume_exists; then
@@ -39,4 +52,12 @@ else
   create_volume
 fi
 
-echo "Docker volume initialization complete."
+# Check if network exists
+if network_exists; then
+  echo "Docker network '$NETWORK_NAME' already exists."
+else
+  # Create the network if it doesn't exist
+  create_network
+fi
+
+echo "Docker volume and network initialization complete."

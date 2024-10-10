@@ -31,6 +31,7 @@ echo "Starting Keycloak container..."
 docker run -d \
   --name $CONTAINER_NAME \
   -p 8080:8080 \
+   --network my_network \
   -e KEYCLOAK_ADMIN=$KEYCLOAK_ADMIN \
   -e KEYCLOAK_ADMIN_PASSWORD=$KEYCLOAK_ADMIN_PASSWORD \
   -e KC_DB=$KC_DB \
