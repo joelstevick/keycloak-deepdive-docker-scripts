@@ -17,6 +17,13 @@ VOLUME_NAME="postgres_data"
 HOST_PORT="5432"
 CONTAINER_PORT="5432"
 
+# Check if the PostgreSQL container is already running
+if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
+    echo "Stopping the existing PostgreSQL container '$CONTAINER_NAME'..."
+    docker stop $CONTAINER_NAME
+    docker rm $CONTAINER_NAME  # Optionally remove the container
+fi
+
 # Run PostgreSQL container in detached mode
 docker run -d \
   --name $CONTAINER_NAME \

@@ -19,22 +19,24 @@ CONTAINER_PORT="80"
 
 # Check if the pgAdmin container is already running
 if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
-    echo "pgAdmin container '$CONTAINER_NAME' is already running."
-else
-    # Start pgAdmin container in detached mode
-    echo "Starting pgAdmin container..."
-    docker run -d \
-      --name $CONTAINER_NAME \
-      -e PGADMIN_DEFAULT_EMAIL=$PGADMIN_DEFAULT_EMAIL \
-      -e PGADMIN_DEFAULT_PASSWORD=$PGADMIN_DEFAULT_PASSWORD \
-      -v $VOLUME_NAME:/var/lib/pgadmin \
-      -v $SERVERS_JSON_PATH:/pgadmin4/servers.json \
-      -p $HOST_PORT:$CONTAINER_PORT \
-      dpage/pgadmin4
-
-    # Copy the servers.json file into the pgAdmin configuration directory
-    docker exec $CONTAINER_NAME sh -c 'cp /pgadmin4/servers.json /var/lib/pgadmin/pgadmin4/servers.json'
-
-    echo "pgAdmin container '$CONTAINER_NAME' started successfully with pre-configured PostgreSQL server."
-    echo "Access pgAdmin at http://localhost:$HOST_PORT"
+    echo "Stopping and removing the existing pgAdmin container '$CONTAINER_NAME'..."
+    docker stop $CONTAINER_NAME
+    docker rm $CONTAINER_NAME  # Optionally remove the container
 fi
+
+# Start pgAdmin container in detached mode
+echo "Starting pgAdmin container..."
+docker run -d \
+  --name $CONTAINER_NAME \
+  -e PGADMIN_DEFAULT_EMAIL=$PGADMIN_DEFAULT_EMAIL \
+  -e PGADMIN_DEFAULT_PASSWORD=$PGADMIN_DEFAULT_PASSWORD \
+  -v $VOLUME_NAME:/var/lib/pgadmin \
+  -v $SERVERS_JSON_PATH:/pgadmin4/servers.json \
+  -p $HOST_PORT:$CONTAINER_PORT \
+  dpage/pgadmin4
+
+# Copy the servers.json file into the pgAdmin configuration directory
+docker exec $CONTAINER_NAME sh -c 'cp /pgadmin4/servers.json /var/lib/pgadmin/pgadmin4/servers.json'
+
+echo "pgAdmin container '$CONTAINER_NAME' started successfully with pre-configured PostgreSQL server."
+echo "Access pgAdmin at http://localhost:$HOST_PORT"
