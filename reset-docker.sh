@@ -14,8 +14,8 @@ if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
     echo "Removing all containers..."
     docker rm $(docker ps -a -q)
 
-    echo "Removing all Docker volumes..."
-    docker volume rm $(docker volume ls -q)
+    # echo "Removing all Docker volumes..." -- enable this line to delete persisted data
+    # docker volume rm $(docker volume ls -q)
 
     echo "Removing all Docker networks..."
     docker network rm $(docker network ls -q)
